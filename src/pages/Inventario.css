@@ -1,0 +1,198 @@
+cat > src/pages/Inventario.css << 'EOF'
+.inventario {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.inventario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.inventario-header h2 {
+  color: #333;
+  font-size: 28px;
+  margin: 0;
+}
+
+.search-input {
+  padding: 12px 16px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 300px;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.tabla-container {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.tabla-productos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-productos thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.tabla-productos th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  border: none;
+}
+
+.tabla-productos tbody tr {
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+
+.tabla-productos tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.tabla-productos tbody tr.editing {
+  background-color: #f0f4ff;
+}
+
+.tabla-productos td {
+  padding: 14px 16px;
+  color: #555;
+}
+
+.tabla-productos input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.tabla-productos input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+}
+
+.ganancia {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.acciones {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-editar, .btn-eliminar, .btn-guardar, .btn-cancelar {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-editar {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-editar:hover {
+  background-color: #2980b9;
+}
+
+.btn-eliminar {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-eliminar:hover {
+  background-color: #c0392b;
+}
+
+.btn-guardar {
+  background-color: #27ae60;
+  color: white;
+}
+
+.btn-guardar:hover {
+  background-color: #229954;
+}
+
+.btn-cancelar {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.btn-cancelar:hover {
+  background-color: #7f8c8d;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 8px;
+  color: #999;
+  font-size: 16px;
+}
+
+.inventario-footer {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inventario-footer p {
+  margin: 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.inventario-footer strong {
+  color: #667eea;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .inventario-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .tabla-container {
+    overflow-x: auto;
+  }
+
+  .acciones {
+    flex-direction: column;
+  }
+
+  .btn-editar, .btn-eliminar, .btn-guardar, .btn-cancelar {
+    width: 100%;
+  }
+}
+EOF

@@ -1,4 +1,3 @@
-cat > (src / pages / Dashboard.jsx) << "EOF";
 import { useState, useEffect } from "react";
 import "./Dashboard.css";
 
@@ -86,4 +85,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-EOF;

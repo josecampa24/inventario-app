@@ -1,4 +1,3 @@
-cat > src/pages/Inventario.css << 'EOF'
 .inventario {
   animation: fadeIn 0.3s ease-in;
 }
@@ -195,4 +194,3 @@ cat > src/pages/Inventario.css << 'EOF'
     width: 100%;
   }
 }
-EOF

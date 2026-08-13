@@ -1,4 +1,3 @@
-cat > (src / App.jsx) << "EOF";
 import { useState } from "react";
 import Dashboard from "./pages/Dashboard";
 import Inventario from "./pages/Inventario";
@@ -56,4 +55,3 @@ function App() {
 }
 
 export default App;
-EOF;

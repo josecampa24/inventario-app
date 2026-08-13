@@ -1,4 +1,3 @@
-cat > src/index.css << 'EOF'
 * {
   margin: 0;
   padding: 0;
@@ -123,4 +122,3 @@ tr:hover {
     transform: translateY(0);
   }
 }
-EOF

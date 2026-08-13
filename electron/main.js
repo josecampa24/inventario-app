@@ -1,4 +1,3 @@
-cat > (electron / main.js) << "EOF";
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const Database = require("better-sqlite3");
@@ -259,4 +258,3 @@ app.on("activate", () => {
     createWindow();
   }
 });
-EOF;

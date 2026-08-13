@@ -1,4 +1,3 @@
-cat > (src / pages / PuntoDeVenta.jsx) << "EOF";
 import { useState, useEffect } from "react";
 import "./PuntoDeVenta.css";
 
@@ -287,4 +286,3 @@ function PuntoDeVenta() {
 }
 
 export default PuntoDeVenta;
-EOF;

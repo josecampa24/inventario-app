@@ -1,4 +1,3 @@
-cat > (src / pages / Inventario.jsx) << "EOF";
 import { useState, useEffect } from "react";
 import "./Inventario.css";
 
@@ -235,4 +234,3 @@ function Inventario() {
 }
 
 export default Inventario;
-EOF;

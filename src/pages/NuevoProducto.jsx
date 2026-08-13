@@ -1,4 +1,3 @@
-cat > (src / pages / NuevoProducto.jsx) << "EOF";
 import { useState } from "react";
 import "./NuevoProducto.css";
 
@@ -192,4 +191,3 @@ function NuevoProducto({ onProductoAgregado }) {
 }
 
 export default NuevoProducto;
-EOF;

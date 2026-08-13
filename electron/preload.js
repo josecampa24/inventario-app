@@ -1,4 +1,3 @@
-cat > (electron / preload.js) << "EOF";
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("electronAPI", {
@@ -19,4 +18,3 @@ contextBridge.exposeInMainWorld("electronAPI", {
   // Estadísticas
   obtenerEstadisticas: () => ipcRenderer.invoke("db:obtenerEstadisticas"),
 });
-EOF;

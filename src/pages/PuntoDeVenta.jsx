@@ -4,7 +4,6 @@ import "./PuntoDeVenta.css";
 function PuntoDeVenta() {
   const [productos, setProductos] = useState([]);
   const [busqueda, setBusqueda] = useState("");
-  const [sugerencias, setSugerencias] = useState([]);
   const [carrito, setCarrito] = useState([]);
   const [mensaje, setMensaje] = useState("");
 
@@ -25,17 +24,13 @@ function PuntoDeVenta() {
 
   const handleBusqueda = (valor) => {
     setBusqueda(valor);
-    if (valor.trim()) {
-      const filtrados = productos.filter(
-        (p) =>
-          p.nombre.toLowerCase().includes(valor.toLowerCase()) &&
-          p.cantidad > 0,
-      );
-      setSugerencias(filtrados.slice(0, 5));
-    } else {
-      setSugerencias([]);
-    }
   };
+
+  const productosMostrados = productos.filter(
+    (p) =>
+      p.cantidad > 0 &&
+      p.nombre.toLowerCase().includes(busqueda.toLowerCase())
+  );
 
   const agregarAlCarrito = (producto) => {
     const productoEnCarrito = carrito.find((p) => p.id === producto.id);
@@ -71,9 +66,6 @@ function PuntoDeVenta() {
         ]);
       }
     }
-
-    setBusqueda("");
-    setSugerencias([]);
   };
 
   const cambiarCantidad = (id, nueva_cantidad) => {
@@ -156,30 +148,32 @@ function PuntoDeVenta() {
           <div className="search-section">
             <input
               type="text"
-              placeholder="Buscar producto..."
+              placeholder="Buscar producto por nombre..."
               value={busqueda}
               onChange={(e) => handleBusqueda(e.target.value)}
               className="pv-search"
             />
+          </div>
 
-            {sugerencias.length > 0 && (
-              <div className="sugerencias">
-                {sugerencias.map((producto) => (
-                  <div
-                    key={producto.id}
-                    className="sugerencia-item"
-                    onClick={() => agregarAlCarrito(producto)}
-                  >
-                    <div className="sugerencia-nombre">{producto.nombre}</div>
-                    <div className="sugerencia-precio">
-                      ${producto.precio_venta.toFixed(2)}
-                    </div>
-                    <div className="sugerencia-stock">
-                      Stock: {producto.cantidad}
-                    </div>
+          <div className="productos-grid">
+            {productosMostrados.length === 0 ? (
+              <div className="no-productos">No se encontraron productos en stock.</div>
+            ) : (
+              productosMostrados.map((producto) => (
+                <div
+                  key={producto.id}
+                  className="producto-card"
+                  onClick={() => agregarAlCarrito(producto)}
+                >
+                  <div className="producto-nombre">{producto.nombre}</div>
+                  <div className="producto-precio">
+                    ${producto.precio_venta.toFixed(2)}
                   </div>
-                ))}
-              </div>
+                  <div className="producto-stock">
+                    Disponible: {producto.cantidad}
+                  </div>
+                </div>
+              ))
             )}
           </div>
         </div>

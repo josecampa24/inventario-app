@@ -11,9 +11,9 @@
 
 .pv-container {
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 1fr 380px;
   gap: 20px;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 130px);
 }
 
 .pv-busqueda {
@@ -32,64 +32,72 @@
 
 .pv-search {
   width: 100%;
-  padding: 16px;
+  padding: 14px 16px;
   border: 2px solid #ddd;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 15px;
   transition: all 0.3s ease;
 }
 
 .pv-search:focus {
   border-color: #667eea;
+  outline: none;
   box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
 
-.sugerencias {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: white;
-  border: 2px solid #667eea;
-  border-radius: 6px;
-  margin-top: 5px;
-  max-height: 300px;
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 15px;
   overflow-y: auto;
-  z-index: 10;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding-right: 5px;
+  flex: 1;
 }
 
-.sugerencia-item {
-  padding: 12px 16px;
-  border-bottom: 1px solid #eee;
+.producto-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.sugerencia-item:last-child {
-  border-bottom: none;
+.producto-card:hover {
+  background: #f0f4ff;
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.15);
 }
 
-.sugerencia-item:hover {
-  background-color: #f0f4ff;
-}
-
-.sugerencia-nombre {
+.producto-nombre {
   font-weight: 600;
   color: #333;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
+  font-size: 14px;
 }
 
-.sugerencia-precio {
+.producto-precio {
   color: #667eea;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
+  margin-bottom: 5px;
 }
 
-.sugerencia-stock {
-  color: #999;
+.producto-stock {
+  color: #777;
   font-size: 12px;
-  margin-top: 4px;
+}
+
+.no-productos {
+  color: #999;
+  font-size: 16px;
+  text-align: center;
+  padding: 20px;
+  grid-column: 1 / -1;
 }
 
 .pv-carrito {
@@ -306,7 +314,7 @@
   background-color: #c0392b;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 850px) {
   .pv-container {
     grid-template-columns: 1fr;
     height: auto;

@@ -22,20 +22,30 @@ function NuevoProducto({ onProductoAgregado }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.nombre.trim()) {
+    const nombre = formData.nombre ? formData.nombre.trim() : "";
+    const cantidadStr = String(formData.cantidad).trim();
+    const precioCompraStr = String(formData.precio_compra).trim();
+    const precioVentaStr = String(formData.precio_venta).trim();
+
+    if (!nombre) {
       setMensaje("El nombre del producto es requerido");
       return;
     }
-    if (!formData.cantidad || formData.cantidad < 0) {
-      setMensaje("La cantidad debe ser un número positivo");
+    if (cantidadStr === "" || isNaN(cantidadStr) || Number(cantidadStr) < 0) {
+      setMensaje("La cantidad debe ser un número válido mayor o igual a 0");
       return;
     }
-    if (!formData.precio_compra || formData.precio_compra < 0) {
-      setMensaje("El precio de compra debe ser un número positivo");
+    if (precioCompraStr === "" || isNaN(precioCompraStr) || Number(precioCompraStr) < 0) {
+      setMensaje("El precio de compra debe ser un número válido mayor o igual a 0");
       return;
     }
-    if (!formData.precio_venta || formData.precio_venta < 0) {
-      setMensaje("El precio de venta debe ser un número positivo");
+    if (precioVentaStr === "" || isNaN(precioVentaStr) || Number(precioVentaStr) < 0) {
+      setMensaje("El precio de venta debe ser un número válido mayor o igual a 0");
+      return;
+    }
+
+    if (!window.electronAPI) {
+      setMensaje("❌ Error: La aplicación no está conectada a la base de datos (Ejecuta en Electron)");
       return;
     }
 
@@ -44,13 +54,13 @@ function NuevoProducto({ onProductoAgregado }) {
 
     try {
       const resultado = await window.electronAPI.agregarProducto({
-        nombre: formData.nombre.trim(),
-        cantidad: parseInt(formData.cantidad),
-        precio_compra: parseFloat(formData.precio_compra),
-        precio_venta: parseFloat(formData.precio_venta),
+        nombre: nombre,
+        cantidad: parseInt(cantidadStr, 10),
+        precio_compra: parseFloat(precioCompraStr),
+        precio_venta: parseFloat(precioVentaStr),
       });
 
-      if (resultado.success) {
+      if (resultado && resultado.success) {
         setMensaje("✅ Producto agregado correctamente");
         setFormData({
           nombre: "",
@@ -60,14 +70,14 @@ function NuevoProducto({ onProductoAgregado }) {
         });
 
         setTimeout(() => {
-          onProductoAgregado();
+          if (onProductoAgregado) onProductoAgregado();
         }, 1500);
       } else {
-        setMensaje(`❌ Error: ${resultado.error}`);
+        setMensaje(`❌ Error: ${resultado ? resultado.error : "Respuesta inválida"}`);
       }
     } catch (error) {
       console.error("Error:", error);
-      setMensaje("❌ Error al agregar el producto");
+      setMensaje(`❌ Error al agregar el producto: ${error.message}`);
     } finally {
       setEnviando(false);
     }

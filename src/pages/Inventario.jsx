@@ -38,6 +38,7 @@ function Inventario() {
         cantidad: parseInt(formData.cantidad),
         precio_compra: parseFloat(formData.precio_compra),
         precio_venta: parseFloat(formData.precio_venta),
+        imagen: formData.imagen || null,
       });
 
       if (resultado.success) {
@@ -98,6 +99,7 @@ function Inventario() {
           <table className="tabla-productos">
             <thead>
               <tr>
+                <th>Imagen</th>
                 <th>Nombre</th>
                 <th>Cantidad</th>
                 <th>Precio Compra</th>
@@ -112,6 +114,38 @@ function Inventario() {
                   key={producto.id}
                   className={editando === producto.id ? "editing" : ""}
                 >
+                  <td className="td-imagen">
+                    {editando === producto.id ? (
+                      <div className="edit-imagen-container">
+                        {formData.imagen ? (
+                          <img src={formData.imagen} alt="Preview" className="miniatura" />
+                        ) : (
+                          <div className="miniatura-placeholder">📷</div>
+                        )}
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="file-input-small"
+                          onChange={(e) => {
+                            const file = e.target.files[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onloadend = () => {
+                                setFormData({ ...formData, imagen: reader.result });
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      producto.imagen ? (
+                        <img src={producto.imagen} alt={producto.nombre} className="miniatura" />
+                      ) : (
+                        <div className="miniatura-placeholder">📷</div>
+                      )
+                    )}
+                  </td>
                   <td>
                     {editando === producto.id ? (
                       <input

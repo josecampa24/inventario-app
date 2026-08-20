@@ -58,12 +58,11 @@
   background: #f8f9fa;
   border: 1px solid #e9ecef;
   border-radius: 8px;
-  padding: 15px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  overflow: hidden;
 }
 
 .producto-card:hover {
@@ -71,6 +70,36 @@
   border-color: #667eea;
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(102, 126, 234, 0.15);
+}
+
+.producto-card-img-container {
+  width: 100%;
+  height: 120px;
+  background-color: #eee;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.producto-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.producto-card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+}
+
+.producto-card-info {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
 }
 
 .producto-nombre {

@@ -165,12 +165,23 @@ function PuntoDeVenta() {
                   className="producto-card"
                   onClick={() => agregarAlCarrito(producto)}
                 >
-                  <div className="producto-nombre">{producto.nombre}</div>
-                  <div className="producto-precio">
-                    ${producto.precio_venta.toFixed(2)}
+                  <div className="producto-card-img-container">
+                    {producto.imagen ? (
+                      <img src={producto.imagen} alt={producto.nombre} className="producto-card-img" />
+                    ) : (
+                      <div className="producto-card-img-placeholder">
+                        <span style={{ fontSize: "24px" }}>📷</span>
+                      </div>
+                    )}
                   </div>
-                  <div className="producto-stock">
-                    Disponible: {producto.cantidad}
+                  <div className="producto-card-info">
+                    <div className="producto-nombre">{producto.nombre}</div>
+                    <div className="producto-precio">
+                      ${producto.precio_venta.toFixed(2)}
+                    </div>
+                    <div className="producto-stock">
+                      Disponible: {producto.cantidad}
+                    </div>
                   </div>
                 </div>
               ))

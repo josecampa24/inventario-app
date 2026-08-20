@@ -7,6 +7,7 @@ function NuevoProducto({ onProductoAgregado }) {
     cantidad: "",
     precio_compra: "",
     precio_venta: "",
+    imagen: "",
   });
   const [enviando, setEnviando] = useState(false);
   const [mensaje, setMensaje] = useState("");
@@ -17,6 +18,27 @@ function NuevoProducto({ onProductoAgregado }) {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validar tamaño (opcional, p.ej. max 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        setMensaje("❌ La imagen es demasiado grande. El tamaño máximo es 2MB.");
+        e.target.value = "";
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({
+          ...prev,
+          imagen: reader.result,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -58,6 +80,7 @@ function NuevoProducto({ onProductoAgregado }) {
         cantidad: parseInt(cantidadStr, 10),
         precio_compra: parseFloat(precioCompraStr),
         precio_venta: parseFloat(precioVentaStr),
+        imagen: formData.imagen || null,
       });
 
       if (resultado && resultado.success) {
@@ -67,7 +90,12 @@ function NuevoProducto({ onProductoAgregado }) {
           cantidad: "",
           precio_compra: "",
           precio_venta: "",
+          imagen: "",
         });
+        
+        // Limpiar input file
+        const fileInput = document.getElementById("imagen");
+        if (fileInput) fileInput.value = "";
 
         setTimeout(() => {
           if (onProductoAgregado) onProductoAgregado();
@@ -101,6 +129,28 @@ function NuevoProducto({ onProductoAgregado }) {
             placeholder="Ej: Laptop Dell XPS 13"
             disabled={enviando}
           />
+        </div>
+
+        <div className="form-group imagen-upload">
+          <label htmlFor="imagen">Fotografía del Producto (Opcional)</label>
+          <div className="imagen-preview-container">
+            {formData.imagen ? (
+              <img src={formData.imagen} alt="Preview" className="imagen-preview" />
+            ) : (
+              <div className="imagen-placeholder">
+                <span>📷 Sin imagen</span>
+              </div>
+            )}
+            <input
+              type="file"
+              id="imagen"
+              name="imagen"
+              accept="image/*"
+              onChange={handleImageChange}
+              disabled={enviando}
+              className="file-input"
+            />
+          </div>
         </div>
 
         <div className="form-row">

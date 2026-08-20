@@ -19,6 +19,7 @@ function initializeDatabase() {
       cantidad INTEGER NOT NULL DEFAULT 0,
       precio_compra REAL NOT NULL,
       precio_venta REAL NOT NULL,
+      imagen TEXT,
       fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
       fecha_actualizacion DATETIME DEFAULT CURRENT_TIMESTAMP
     );
@@ -41,6 +42,18 @@ function initializeDatabase() {
       fecha DATETIME DEFAULT CURRENT_TIMESTAMP
     );
   `);
+
+  // Migración para añadir columna 'imagen' a bases de datos existentes
+  try {
+    const tableInfo = db.prepare("PRAGMA table_info(productos)").all();
+    const hasImagen = tableInfo.some(column => column.name === 'imagen');
+    if (!hasImagen) {
+      db.exec("ALTER TABLE productos ADD COLUMN imagen TEXT");
+      console.log("Migración: Columna 'imagen' añadida a productos.");
+    }
+  } catch (err) {
+    console.error("Error comprobando o aplicando migración:", err);
+  }
 
   console.log("Base de datos inicializada en:", dbPath);
 }
@@ -77,14 +90,15 @@ function createWindow() {
 ipcMain.handle("db:agregarProducto", (event, producto) => {
   try {
     const stmt = db.prepare(`
-      INSERT INTO productos (nombre, cantidad, precio_compra, precio_venta)
-      VALUES (?, ?, ?, ?)
+      INSERT INTO productos (nombre, cantidad, precio_compra, precio_venta, imagen)
+      VALUES (?, ?, ?, ?, ?)
     `);
     const result = stmt.run(
       producto.nombre,
       producto.cantidad,
       producto.precio_compra,
       producto.precio_venta,
+      producto.imagen || null
     );
     return { success: true, id: result.lastInsertRowid };
   } catch (error) {
@@ -110,7 +124,7 @@ ipcMain.handle("db:actualizarProducto", (event, id, producto) => {
   try {
     const stmt = db.prepare(`
       UPDATE productos 
-      SET nombre = ?, cantidad = ?, precio_compra = ?, precio_venta = ?, fecha_actualizacion = CURRENT_TIMESTAMP
+      SET nombre = ?, cantidad = ?, precio_compra = ?, precio_venta = ?, imagen = ?, fecha_actualizacion = CURRENT_TIMESTAMP
       WHERE id = ?
     `);
     stmt.run(
@@ -118,6 +132,7 @@ ipcMain.handle("db:actualizarProducto", (event, id, producto) => {
       producto.cantidad,
       producto.precio_compra,
       producto.precio_venta,
+      producto.imagen || null,
       id,
     );
     return { success: true };

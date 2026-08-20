@@ -194,3 +194,43 @@
     width: 100%;
   }
 }
+
+/* Image styles */
+.td-imagen {
+  width: 60px;
+  text-align: center;
+}
+
+.miniatura {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.miniatura-placeholder {
+  width: 40px;
+  height: 40px;
+  background-color: #f5f5f5;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #999;
+}
+
+.edit-imagen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.file-input-small {
+  width: 90px !important;
+  font-size: 10px !important;
+  padding: 2px !important;
+}

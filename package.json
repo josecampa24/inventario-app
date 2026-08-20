@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
     "dev:vite": "vite",
-    "dev:electron": "wait-on http://localhost:5173 && electron . --no-sandbox",
+    "dev:electron": "wait-on http://localhost:5173 && ELECTRON_OZONE_PLATFORM=x11 electron . --no-sandbox --disable-gpu",
     "build": "vite build && electron-builder",
     "preview": "vite preview"
   },
